@@ -1,0 +1,33 @@
+.navbar {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Orbitron', sans-serif;
+
+  a{
+    text-decoration: none;
+    color: #ffffff;
+  }
+}
+
+.nav-title {
+  font-size: 3rem;
+  filter: drop-shadow(0 0 0.2rem #ffffff);
+}
+
+.nav-links{
+  display: flex;
+  gap: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-right: 5%;
+  transition: 0.15s ease;
+
+  a:hover {
+    color:#d1d1d1;
+    font-size: 1.03rem;
+    transition: 0.15s ease;
+  }
+}
+
