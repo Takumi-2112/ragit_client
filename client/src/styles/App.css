@@ -50,3 +50,38 @@
   text-align: center;
   box-sizing: border-box;
 }
+
+.chat-access{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border: 3px solid #ffffff;
+  color: #05005b;
+  border-radius: 15px;
+  padding: 1%;
+  font-family: 'orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.5s ease;
+  animation: float 5s infinite;
+
+  &:hover{
+    background-color: #0090d8;
+    border: 3px solid #ffffff;
+    padding: 1.2%;
+    font-size: 1.3rem;
+    color: #ffffff;
+    transition: 0.5s ease;
+    filter: drop-shadow(0 0 1rem #ffffff);
+  }
+  
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}

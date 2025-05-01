@@ -28,6 +28,15 @@
     color:#d1d1d1;
     font-size: 1.03rem;
     transition: 0.15s ease;
+
+    .lotus{
+      color: #ff0084;
+    }
+
+    .verse{
+      color: #0bd200;
+    }
   }
 }
+
 

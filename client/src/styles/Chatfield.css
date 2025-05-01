@@ -1,0 +1,84 @@
+.master-chatfield {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  height: 90dvh; /* or a fixed parent size */
+  overflow: hidden;
+}
+
+.messages-container {
+  width: 80%;
+  height: 300px; /* or any fixed value (e.g., 40vh or rem) */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: #ffffff;
+  flex-shrink: 0;     /* ✅ prevents shrinking if parent collapses */
+  flex-grow: 0;       /* ✅ disables auto growth */
+}
+
+/* Optional: Custom scrollbar for WebKit */
+.messages-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background-color: #ffffff30;
+  border-radius: 4px;
+}
+
+.message {
+  display: inline-block;
+  max-width: 80%;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  word-wrap: break-word;
+  font-family: 'Exo 2', sans-serif;
+  color: white;
+}
+
+.bot-message {
+  background-color: #2a2a2a;
+  align-self: flex-start;
+}
+
+.user-message {
+  background-color: #eaeaea; /* Indigo blue or any vibrant color */
+  color: #05005b;
+  font-weight: 600;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.textarea-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 20%;
+}
+
+textarea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1% 1.5% 0 1.5%;
+  width: 50%;
+  border-radius: 20px;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1.2rem;
+  background-color: inherit;
+  color: #ffffff;
+  border: solid #2a2a2a;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none; 
+}
