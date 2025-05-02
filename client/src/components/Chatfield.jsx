@@ -31,7 +31,7 @@ function Chatfield() {
         <textarea
           name="chatfield"
           className="chatfield-textarea"
-          placeholder="Enter your prompt here ..."
+          placeholder="Enter your prompt here . . ."
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
