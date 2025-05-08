@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/Chatfield.css";
 
-function Chatfield() {
+function Chatfield({ handleURLClick, handlePDFClick }) {
   const [messages, setMessages] = useState([
     { text: "Hello Mr. Azran, how can I assist you today?", sender: "bot" },
   ]);
@@ -45,8 +45,8 @@ function Chatfield() {
             }}
           />
           <div className="textarea-icons">
-            <i className="fa-solid fa-file-pdf pdf"></i>
-            <i className="fa-solid fa-globe website"></i>
+            <i className="fa-solid fa-file-pdf pdf" onClick={handlePDFClick}></i>
+            <i className="fa-solid fa-globe website" onClick={handleURLClick}></i>
           </div>
         </div>
       </div>

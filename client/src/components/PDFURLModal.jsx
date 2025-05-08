@@ -1,47 +1,51 @@
 import "../styles/PDFURLModal.css";
 
-function PDFURLModal() {
+function PDFURLModal({ pdf, setPDF, url, stURL, handleModalClose }) {
   return (
     <div className="modal">
       <div className="modal-overlay">
         <div className="modal-content">
-          <div className="modal-close-container" >
-            <i className="fa-solid fa-xmark close-modal"></i>
+          <div className="modal-close-container">
+            <i className="fa-solid fa-xmark close-modal" onClick={handleModalClose}></i>
           </div>
-          <h2 className="login-title">
-            LOGIN
-          </h2>
-          <form >
+          <form>
             <div className="modal-inputs">
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-              />
+              {pdf && true ? (
+                <>
+                  <label
+                    htmlFor="file-upload"
+                    className="pdf-upload-label-title"
+                  >
+                    Upload PDF:
+                  </label>
+                  <input
+                    type="file"
+                    id="pdf-upload"
+                    accept="application/pdf"
+                    className="pdf-upload-input"  
+                    onChange={(e) => setPDF(e.target.files[0])}
+                  />
+                </>
+              ) : (
+                <>
+                  <label htmlFor="url-input" className="url-input-label-title">
+                    Enter URL:
+                  </label>
+                  <input
+                    type="text"
+                    id="url-input"
+                    placeholder="Enter URL"
+                    onChange={(e) => stURL(e.target.value)}
+                  />
+                </>
+              )}
+              <button className="form-submit-button">Submit</button>
             </div>
           </form>
-          <div className="modal-interact">
-            <button className="login-button">
-              Login
-            </button>
-            <p>
-              Don't have an account?{" "}
-              <span
-                className="sign-up-here"
-                >
-                Sign Up here!
-              </span>
-            </p>
-          </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default PDFURLModal;
