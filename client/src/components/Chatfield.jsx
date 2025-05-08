@@ -28,21 +28,27 @@ function Chatfield() {
         ))}
       </div>
       <div className="textarea-container">
-        <textarea
-          name="chatfield"
-          className="chatfield-textarea"
-          placeholder="Enter your prompt here . . ."
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              const newMessage = e.target.value.trim();
-              if (newMessage) {
-                addMessage(newMessage);
-                e.target.value = "";
+        <div className="textarea-wrapper">
+          <textarea
+            name="chatfield"
+            className="chatfield-textarea"
+            placeholder="Enter your prompt here . . ."
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                const newMessage = e.target.value.trim();
+                if (newMessage) {
+                  addMessage(newMessage);
+                  e.target.value = "";
+                }
               }
-            }
-          }}
-        ></textarea>
+            }}
+          />
+          <div className="textarea-icons">
+            <i className="fa-solid fa-file-pdf pdf"></i>
+            <i className="fa-solid fa-globe website"></i>
+          </div>
+        </div>
       </div>
     </div>
   );

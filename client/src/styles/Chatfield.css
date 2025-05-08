@@ -50,7 +50,7 @@
 }
 
 .user-message {
-  background-color: #eaeaea; /* Indigo blue or any vibrant color */
+  background-color: #eaeaea;
   color: #05005b;
   font-weight: 600;
   align-self: flex-end;
@@ -66,7 +66,20 @@
   min-height: 20%;
 }
 
+
+.textarea-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 50%;
+  background-color: inherit;
+  border: solid #2a2a2a;
+  border-radius: 20px;
+  padding: 0.75rem 1rem;
+}
+
 textarea {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,11 +90,37 @@ textarea {
   font-size: 1.2rem;
   background-color: inherit;
   color: #ffffff;
-  border: solid #2a2a2a;
+  border: none;
   resize: none;
   cursor: text;
 }
 
 textarea:focus {
   outline: none; 
+}
+
+.textarea-icons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pdf{
+  color: #ffffff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.25s ease;
+
+  &:hover {
+    filter: drop-shadow(0 0 0.2rem #ffffff);
+  }
+}
+
+.website{
+  color: #ffffff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.25s ease; 
+  &:hover {
+    filter: drop-shadow(0 0 0.2rem #ffffff);
+  }
 }

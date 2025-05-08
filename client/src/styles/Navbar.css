@@ -16,18 +16,31 @@
   filter: drop-shadow(0 0 0.2rem #ffffff);
 }
 
+.nav-title-logo{
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10%;
+}
+
+.nav-logo-image{
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 0.2rem #ffffff);
+}
+
 .nav-links{
   display: flex;
   gap: 2rem;
   font-size: 1rem;
   font-weight: 600;
-  margin-right: 5%;
   transition: 0.15s ease;
 
   a:hover {
     color:#d1d1d1;
     font-size: 1.03rem;
-    transition: 0.15s ease;
+    transition: 0.25s ease;
 
     .lotus{
       color: #ff0084;
@@ -36,7 +49,14 @@
     .verse{
       color: #0bd200;
     }
+
+    .link, .git{
+      color: #ffffff00;
+      transition: 0.25s ease;
+    }
   }
 }
+
+
 
 
