@@ -1,0 +1,160 @@
+/* Modal Overlay */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 1000;
+}
+
+/* Modal Overlay for Clicking Outside to Close */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+}
+
+/* Modal Content */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to bottom, #05005b, #000000);
+  padding: 2% 1%;
+  border-radius: 20px;
+  border: 5px solid #ffffff;
+  font-family: "Montserrat", sans-serif;
+  width: 35%;
+  z-index: 1001;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-close-container{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.close-modal{
+  font-size: 1.5rem;
+  margin-right: 5%;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.close-modal:hover{
+  color: #ff9e9e;
+  filter: drop-shadow(0 0 0.4rem #ff0000);
+}
+
+.login-title{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "League Spartan", sans-serif;
+  font-size: 2rem;
+  font-style: italic;
+  filter: drop-shadow(0 0 1rem #89daff);
+}
+
+.modal-lightning{
+  width: 30px;
+  filter: drop-shadow(0 0 1rem #ffffff);
+  margin-bottom: 5%;
+}
+
+
+form{
+  width: 100%;
+}
+
+.modal-inputs{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  margin: 5% 0 10% 0;
+}
+
+.modal-inputs input{
+  width: 60%;
+  padding: 2% 1%;
+  border: 2px solid #89daff;
+  border-radius: 20px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #1c1c1c;  
+  padding: 2% 2.5%;
+}
+
+.modal-interact{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.login-button{
+  width: 20%;
+  background-color: #00aeff;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: white;
+  border: 2.5px solid #00aeff;
+  padding: 1.5% 0; 
+  margin-bottom: 2%;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.login-button:hover{
+  background-color: #ffffff;
+  color: #00aeff;
+  filter: drop-shadow(0 0 0.4rem #00aeff);
+}
+
+.sign-up-here{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: #00aeff;
+  font-size: 1rem;
+  margin-top: 5%;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.sign-up-here:hover{
+  color: #ffffff;
+  filter: drop-shadow(0 0 0.4rem #00aeff);
+}
+
+/* Fade-in animation for modal */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
