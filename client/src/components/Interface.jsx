@@ -3,7 +3,7 @@ import "../styles/Interface.css";
 import Chatfield from "./Chatfield";
 import PDFURLModal from "./PDFURLModal";
 
-function Interface() {
+function Interface({ messages, setMessages, input, setInput, handleSend, handleInterrfaceToggle }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [pdf, setPDF] = useState(false);
   const [url, setURL] = useState(false);
@@ -42,6 +42,11 @@ function Interface() {
         <h1 className="interface-title">Build Your Knowledge Pool Now</h1>
         <div className="interface-content">
           <Chatfield
+            messages={messages}
+            setMessages={setMessages}
+            input={input}
+            setInput={setInput}
+            handleSend={handleSend}
             handleURLClick={handleURLClick}
             handlePDFClick={handlePDFClick}
           />

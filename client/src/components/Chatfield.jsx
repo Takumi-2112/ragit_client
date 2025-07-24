@@ -1,17 +1,24 @@
 import { useState } from "react";
 import "../styles/Chatfield.css";
 
-function Chatfield({ handleURLClick, handlePDFClick }) {
-  const [messages, setMessages] = useState([
-    { text: "Hello Mr. Azran, how can I assist you today?", sender: "bot" },
-  ]);
+function Chatfield({
+  messages,
+  setMessages,
+  input,
+  setInput,
+  handleSend,
+  handleURLClick,
+  handlePDFClick,
+}) {
 
-  const addMessage = (newMessage) => {
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { text: newMessage, sender: "user" },
-    ]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Prevent the default behavior (new line)
+      handleSend(e); // Submit the form
+    }
   };
+
 
   return (
     <div className="master-chatfield">
@@ -29,25 +36,28 @@ function Chatfield({ handleURLClick, handlePDFClick }) {
       </div>
       <div className="textarea-container">
         <div className="textarea-wrapper">
-          <textarea
-            name="chatfield"
-            className="chatfield-textarea"
-            placeholder="Enter your prompt here . . ."
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                const newMessage = e.target.value.trim();
-                if (newMessage) {
-                  addMessage(newMessage);
-                  e.target.value = "";
-                }
-              }
-            }}
-          />
-          <div className="textarea-icons">
-            <i className="fa-solid fa-file-pdf pdf" onClick={handlePDFClick}></i>
-            <i className="fa-solid fa-globe website" onClick={handleURLClick}></i>
-          </div>
+          <form onSubmit={handleSend} className="chatfield-form">
+            <textarea
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              name="chatfield"
+              className="chatfield-textarea"
+              placeholder="Enter your prompt here . . ."
+            />
+            <div className="textarea-icons">
+              <i
+                className="fa-solid fa-file-pdf pdf"
+                onClick={handlePDFClick}
+              ></i>
+              <i
+                className="fa-solid fa-globe website"
+                onClick={handleURLClick}
+              ></i>
+              <button className="send-button">Send</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
