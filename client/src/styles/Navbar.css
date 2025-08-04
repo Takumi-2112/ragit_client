@@ -1,9 +1,13 @@
 .navbar {
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: 'Orbitron', sans-serif;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(1rem);
 
   a{
     text-decoration: none;
@@ -14,6 +18,7 @@
 .nav-title {
   font-size: 3rem;
   filter: drop-shadow(0 0 0.2rem #ffffff);
+  margin-left: 10%;
 }
 
 .nav-title-logo{
@@ -36,6 +41,7 @@
   font-size: 1rem;
   font-weight: 600;
   transition: 0.15s ease;
+  margin-right: 10%;
 
   a:hover {
     color:#d1d1d1;

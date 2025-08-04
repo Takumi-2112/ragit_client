@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ReactMarkdown from 'react-markdown';
 import "../styles/Chatfield.css";
 
 function Chatfield({
@@ -11,14 +12,12 @@ function Chatfield({
   handlePDFClick,
 }) {
 
-
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault(); // Prevent the default behavior (new line)
       handleSend(e); // Submit the form
     }
   };
-
 
   return (
     <div className="master-chatfield">
@@ -30,7 +29,15 @@ function Chatfield({
               message.sender === "user" ? "user-message" : "bot-message"
             }`}
           >
-            {message.text}
+            {message.sender === "bot" ? (
+              <div className="markdown-content">
+                <ReactMarkdown>
+                  {message.text}
+                </ReactMarkdown>
+              </div>
+            ) : (
+              message.text
+            )}
           </div>
         ))}
       </div>
