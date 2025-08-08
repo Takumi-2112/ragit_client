@@ -8,11 +8,12 @@ function Interface({ messages, setMessages, input, setInput, handleSend, handleI
   const [pdf, setPDF] = useState(false);
   const [url, setURL] = useState(false);
 
-  const handleModalClose = () => {
+  const handlePDFURLModalClose = () => {
     setModalOpen(false);
     setPDF(false);
     setURL(false);
   };
+
   const handleModalOpen = () => {
     setModalOpen(true);
   };
@@ -35,7 +36,7 @@ function Interface({ messages, setMessages, input, setInput, handleSend, handleI
           setPDF={setPDF}
           url={url}
           stURL={setURL}
-          handleModalClose={handleModalClose}
+         handlePDFURLModalClose={handlePDFURLModalClose}
         />
       )}
       <div className="master-interface">

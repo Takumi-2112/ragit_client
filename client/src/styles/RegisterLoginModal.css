@@ -1,0 +1,131 @@
+/* Modal Overlay */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 1000;
+}
+
+/* Modal Overlay for Clicking Outside to Close */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+}
+
+/* Modal Content */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to bottom, #05005b, #000000);
+  padding: 2% 1%;
+  border-radius: 20px;
+  border: 5px solid #ffffff;
+  width: 35%;
+  z-index: 1001;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-close-container{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.close-modal{
+  font-size: 1.5rem;
+  margin-right: 5%;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.close-modal:hover{
+  color: #d40000;
+  filter: drop-shadow(0 0 0.4rem #ff0000);
+}
+
+form{
+  width: 100%;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 600; 
+  font-size: 1.2rem;  
+}
+
+.modal-inputs{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  margin: 5% 0 10% 0;
+}
+
+.modal-inputs input{
+  width: 60%;
+  padding: 2% 1%;
+  border: 5px solid #ffffff;
+  border-radius: 20px;
+  color: white;
+  background-color: #ffffff00;  
+  padding: 2% 2.5%;
+
+  &:focus{
+    outline: none;
+  }
+}
+
+.form-submit-button{
+  margin-top: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border: 3px solid #ffffff;
+  color: #05005b;
+  border-radius: 15px;
+  padding: 1%;
+  font-family: 'orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.5s ease;
+  animation: float 5s infinite;
+
+  &:hover{
+    background-color: #0090d800;
+    border: 3px solid #ffffff;
+    padding: 1.2%;
+    font-size: 1.3rem;
+    color: #ffffff;
+    transition: 0.5s ease;
+    filter: drop-shadow(0 0 1rem #ffffff);
+  }
+}
+/* Fade-in animation for modal */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
