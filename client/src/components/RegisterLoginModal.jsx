@@ -17,15 +17,15 @@ function RegisterLoginModal({
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (register) {
       // Handle registration
       try {
@@ -42,13 +42,13 @@ function RegisterLoginModal({
         });
 
         const data = await response.json();
-        
+
         if (response.ok) {
           // Store token and user data
           localStorage.setItem("token", data.token);
           localStorage.setItem("user_id", data.user_id);
           localStorage.setItem("username", data.username);
-          
+
           // Close modal and redirect to interface
           handleRegisterLoginModalClose();
           // You might want to call a function to update the app state here
@@ -76,13 +76,13 @@ function RegisterLoginModal({
         });
 
         const data = await response.json();
-        
+
         if (response.ok) {
           // Store token and user data
           localStorage.setItem("token", data.token);
           localStorage.setItem("user_id", data.user_id);
           localStorage.setItem("username", data.username);
-          
+
           // Close modal and redirect to interface
           handleRegisterLoginModalClose();
           // You might want to call a function to update the app state here
@@ -124,40 +124,42 @@ function RegisterLoginModal({
             <>
               <h2>Register</h2>
               <form onSubmit={handleSubmit}>
-                <input 
-                  type="text" 
+                <input
+                  className="auth-inputs"
+                  type="text"
                   name="username"
-                  placeholder="Username" 
+                  placeholder="Username"
                   value={formData.username}
                   onChange={handleInputChange}
-                  required 
+                  required
                 />
-                <input 
-                  type="email" 
+                <input
+                  className="auth-inputs"
+                  type="email"
                   name="email"
-                  placeholder="Email" 
+                  placeholder="Email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  required 
+                  required
                 />
-                <input 
-                  type="password" 
+                <input
+                  className="auth-inputs"
+                  type="password"
                   name="password"
-                  placeholder="Password" 
+                  placeholder="Password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  required 
+                  required
                 />
-                <button type="submit">Register</button>
+                <button className="form-submit-button"  type="submit">Register</button>
               </form>
               <p>
                 Already have an account?{" "}
-                <span 
+                <span
                   onClick={() => {
                     setRegister(false);
                     setLogin(true);
                   }}
-                  style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
                 >
                   Login here
                 </span>
@@ -168,32 +170,33 @@ function RegisterLoginModal({
             <>
               <h2>Login</h2>
               <form onSubmit={handleSubmit}>
-                <input 
-                  type="text" 
+                <input
+                  className="auth-inputs"
+                  type="text"
                   name="username"
-                  placeholder="Username" 
+                  placeholder="Username"
                   value={formData.username}
                   onChange={handleInputChange}
-                  required 
+                  required
                 />
-                <input 
-                  type="password" 
+                <input
+                  className="auth-inputs"
+                  type="password"
                   name="password"
-                  placeholder="Password" 
+                  placeholder="Password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  required 
+                  required
                 />
-                <button type="submit">Login</button>
+                <button className="form-submit-button" type="submit">Login</button>
               </form>
               <p>
                 Don't have an account?{" "}
-                <span 
+                <span
                   onClick={() => {
                     setLogin(false);
                     setRegister(true);
                   }}
-                  style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
                 >
                   Register here
                 </span>

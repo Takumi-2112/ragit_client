@@ -70,7 +70,7 @@
   animation: float 5s infinite;
 
   &:hover{
-    background-color: #0090d8;
+    background-color: #00000000;
     border: 3px solid #ffffff;
     padding: 1.2%;
     font-size: 1.3rem;

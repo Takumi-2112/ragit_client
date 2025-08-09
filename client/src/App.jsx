@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Interface from "./components/Interface";
 import RegisterLoginModal from "./components/RegisterLoginModal";
+import Footer from "./components/Footer";
 import "./styles/App.css";
 
 function App() {
@@ -166,7 +167,7 @@ function App() {
             className="chat-access"
             onClick={handleGetStartedClick}
           >
-            {isAuthenticated ? "Continue Chatting" : "Get Started"}
+            {isAuthenticated ? `Log back in ${userInfo.username}!` : "Get Started"}
           </button>
         </div>
       ) : (
@@ -182,6 +183,7 @@ function App() {
           />
         </div>
       )}
+      <Footer login={login}/>
     </div>
   );
 }
