@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Interface from "./components/Interface";
 import RegisterLoginModal from "./components/RegisterLoginModal";
+import About from "./components/About";
 import Footer from "./components/Footer";
 import "./styles/App.css";
 
@@ -15,6 +16,7 @@ function App() {
   const [login, setLogin] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const [isAbout, setIsAbout] = useState(false);
 
   // Check if user is already authenticated on app load
   useEffect(() => {
@@ -39,12 +41,12 @@ function App() {
 
     try {
       const token = localStorage.getItem("token");
-      
+
       const response = await fetch("http://localhost:8080/message", {
         method: "POST",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ message: input }),
       });
@@ -69,7 +71,7 @@ function App() {
         ...prevMessages,
         {
           sender: "bot",
-          text: err.message.includes("Authentication") 
+          text: err.message.includes("Authentication")
             ? "Please log in to continue chatting."
             : "Server error; Server not responding ⚠️ Wait a few seconds and try again ✅",
         },
@@ -95,7 +97,7 @@ function App() {
   const handleRegisterLoginModalClose = () => {
     setRegister(false);
     setLogin(false);
-    
+
     // Check if user just authenticated
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("user_id");
@@ -111,14 +113,14 @@ function App() {
   const handleLogout = async () => {
     try {
       const token = localStorage.getItem("token");
-      
+
       // Call logout endpoint (optional - JWT is stateless)
       if (token) {
         await fetch("http://localhost:8080/logout", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         });
       }
@@ -129,7 +131,7 @@ function App() {
       localStorage.removeItem("token");
       localStorage.removeItem("user_id");
       localStorage.removeItem("username");
-      
+
       // Reset app state
       setIsAuthenticated(false);
       setUserInfo(null);
@@ -140,14 +142,18 @@ function App() {
     }
   };
 
+  const handleAboutToggle = () => {
+    setIsAbout((prevState) => !prevState);
+  };
+
   return (
     <div className="master-app">
-      <Navbar 
-        isAuthenticated={isAuthenticated} 
+      <Navbar
+        isAuthenticated={isAuthenticated}
         userInfo={userInfo}
         handleLogout={handleLogout}
       />
-      
+
       {/* Render modal only when register or login is true */}
       <RegisterLoginModal
         register={register}
@@ -163,11 +169,22 @@ function App() {
             Ever wanted to be a know-it-all on any document or website within
             seconds?
           </h1>
-          <button
-            className="chat-access"
-            onClick={handleGetStartedClick}
-          >
-            {isAuthenticated ? `Log back in ${userInfo.username}!` : "Get Started"}
+          {isAbout ? (
+            <i
+              className="fa-solid fa-angle-down down-arrow"
+              onClick={handleAboutToggle}
+            ></i>
+          ) : (
+            <i
+              className="fa-solid fa-angle-down up-arrow"
+              onClick={handleAboutToggle}
+            ></i>
+          )}
+          <About isAbout={isAbout} />
+          <button className="chat-access" onClick={handleGetStartedClick}>
+            {isAuthenticated
+              ? `Log back in ${userInfo.username}!`
+              : "Get Started"}
           </button>
         </div>
       ) : (
@@ -183,7 +200,7 @@ function App() {
           />
         </div>
       )}
-      <Footer login={login}/>
+      <Footer login={login} />
     </div>
   );
 }

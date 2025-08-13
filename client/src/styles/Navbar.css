@@ -8,6 +8,7 @@
   top: 0;
   z-index: 1000;
   backdrop-filter: blur(1rem);
+  padding: 0 5%;
 
   a{
     text-decoration: none;
@@ -17,8 +18,8 @@
 
 .nav-title {
   font-size: 3rem;
+  margin: 0 0 0 5%;
   filter: drop-shadow(0 0 0.2rem #ffffff);
-  margin-left: 10%;
 }
 
 .nav-title-logo{
