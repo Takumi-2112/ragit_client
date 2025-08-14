@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from 'react-markdown';
 import "../styles/Chatfield.css";
 
@@ -11,6 +11,13 @@ function Chatfield({
   handleURLClick,
   handlePDFClick,
 }) {
+  const messagesContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -21,7 +28,7 @@ function Chatfield({
 
   return (
     <div className="master-chatfield">
-      <div className="messages-container">
+      <div className="messages-container" ref={messagesContainerRef}>
         {messages.map((message, index) => (
           <div
             key={index}
@@ -54,6 +61,7 @@ function Chatfield({
               placeholder="Enter your prompt here . . ."
             />
             <div className="textarea-icons">
+              <div className="textarea-input-buttons">
               <i
                 className="fa-solid fa-file-pdf pdf"
                 onClick={handlePDFClick}
@@ -62,6 +70,7 @@ function Chatfield({
                 className="fa-solid fa-globe website"
                 onClick={handleURLClick}
               ></i>
+              </div>
               <button className="send-button">Send</button>
             </div>
           </form>

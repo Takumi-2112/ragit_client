@@ -7,11 +7,12 @@
   width: 100%;
   height: 90dvh; /* or a fixed parent size */
   overflow: hidden;
+  margin-bottom: 0;
 }
 
 .messages-container {
   width: 80%;
-  height: 300px; /* or any fixed value (e.g., 40vh or rem) */
+  height: 300px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -19,11 +20,10 @@
   padding: 1rem;
   scrollbar-width: thin;
   scrollbar-color: #ffffff;
-  flex-shrink: 0;     /* ✅ prevents shrinking if parent collapses */
-  flex-grow: 0;       /* ✅ disables auto growth */
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
-/* Optional: Custom scrollbar for WebKit */
 .messages-container::-webkit-scrollbar {
   width: 6px;
 }
@@ -39,7 +39,7 @@
   padding: 0.5rem 1rem;
   border-radius: 12px;
   word-wrap: break-word;
-  font-family: 'Exo 2', sans-serif;
+  font-family: "Exo 2", sans-serif;
   color: white;
 }
 
@@ -66,16 +66,14 @@
   min-height: 20%;
 }
 
-
 .textarea-wrapper {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  width: 50%;
+  width: 70%;
   background-color: inherit;
-  border: solid #2a2a2a;
+  border: solid 3px #ffffff;
   border-radius: 20px;
-  padding: 0.75rem 1rem;
+  margin: 0 0 2% 0;
 }
 
 textarea {
@@ -84,9 +82,9 @@ textarea {
   justify-content: center;
   align-items: center;
   padding: 1% 1.5% 0 1.5%;
-  width: 50%;
+  width: 95%;
   border-radius: 20px;
-  font-family: 'Exo 2', sans-serif;
+  font-family: "Exo 2", sans-serif;
   font-size: 1.2rem;
   background-color: inherit;
   color: #ffffff;
@@ -96,15 +94,28 @@ textarea {
 }
 
 textarea:focus {
-  outline: none; 
+  outline: none;
 }
 
 .textarea-icons {
+  width: 95%;
   display: flex;
-  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.pdf{
+.textarea-input-buttons {
+  width: 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatfield-form {
+  margin: 1%;
+}
+
+.pdf {
   color: #ffffff;
   font-size: 1.5rem;
   cursor: pointer;
@@ -115,12 +126,30 @@ textarea:focus {
   }
 }
 
-.website{
+.website {
   color: #ffffff;
   font-size: 1.5rem;
   cursor: pointer;
-  transition: 0.25s ease; 
+  transition: 0.25s ease;
   &:hover {
     filter: drop-shadow(0 0 0.2rem #ffffff);
+  }
+}
+
+.send-button{
+  font-family: "orbitron", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background-color: #ffffff;
+  color: #05005b;
+  border: solid 3px #ffffff;
+  border-radius: 15px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+
+  &:hover {
+    background-color: #ffffff00;
+    color: #ffffff;
   }
 }

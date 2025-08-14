@@ -120,22 +120,22 @@ function About({ isAbout }) {
       {isAbout ? (
         <div className="master-about">
           <div className="about-content">
-            <div className="about-use-cases-div">
-              <h2 className="use-case-title">Use Cases</h2>
-              <ul>
-                {useCases.map((useCase, index) => (
-                  <li key={index}>
-                    <strong>{useCase.title}</strong>: {useCase.description}
-                  </li>
-                ))}
-              </ul>
-            </div>
             <div className="about-features-div">
               <h2 className="feature-title">Features</h2>
               <ul>
                 {features.map((feature, index) => (
                   <li key={index}>
                     <strong>{feature.title}</strong>: {feature.description}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="about-use-cases-div">
+              <h2 className="use-case-title">Use Cases</h2>
+              <ul>
+                {useCases.map((useCase, index) => (
+                  <li key={index}>
+                    <strong>{useCase.title}</strong>: {useCase.description}
                   </li>
                 ))}
               </ul>

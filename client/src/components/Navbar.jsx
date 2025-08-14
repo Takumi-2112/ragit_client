@@ -28,7 +28,7 @@ function Navbar({ isAuthenticated, userInfo, handleLogout }) {
         </a>
         {isAuthenticated && (
           <button className="logout-button" onClick={handleLogout}>
-            Logout {userInfo && `(${userInfo.username})`}
+            Logout <span>{userInfo && `(${userInfo.username})`}</span>
           </button>
         )}
       </div>

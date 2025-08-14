@@ -3,14 +3,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   position: fixed;
   top: 0;
   z-index: 1000;
   backdrop-filter: blur(1rem);
-  padding: 0 5%;
+  padding: 2% 5%;
 
-  a{
+  a {
     text-decoration: none;
     color: #ffffff;
   }
@@ -22,7 +22,7 @@
   filter: drop-shadow(0 0 0.2rem #ffffff);
 }
 
-.nav-title-logo{
+.nav-title-logo {
   width: 15%;
   display: flex;
   justify-content: center;
@@ -30,13 +30,13 @@
   margin-left: 10%;
 }
 
-.nav-logo-image{
+.nav-logo-image {
   width: 100%;
   height: auto;
   filter: drop-shadow(0 0 0.2rem #ffffff);
 }
 
-.nav-links{
+.nav-links {
   display: flex;
   gap: 2rem;
   font-size: 1rem;
@@ -45,25 +45,40 @@
   margin-right: 10%;
 
   a:hover {
-    color:#d1d1d1;
+    color: #d1d1d1;
     font-size: 1.03rem;
     transition: 0.25s ease;
 
-    .lotus{
+    .lotus {
       color: #ff0084;
     }
 
-    .verse{
+    .verse {
       color: #0bd200;
     }
 
-    .link, .git{
+    .link,
+    .git {
       color: #ffffff00;
       transition: 0.25s ease;
     }
   }
 }
 
+.logout-button {
+  font-family: "orbitron", sans-serif;
+  background-color: inherit;
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
 
-
-
+.logout-button:hover {
+  span {
+    transition: 0.25s ease;
+    color: #ff6f61;
+    filter: drop-shadow(0 0 0.2rem #ff0000);
+  }
+}
