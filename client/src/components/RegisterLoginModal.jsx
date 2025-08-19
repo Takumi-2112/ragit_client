@@ -6,8 +6,8 @@ function RegisterLoginModal({
   setRegister,
   login,
   setLogin,
-  handleRegisterLoginModalOpen,
   handleRegisterLoginModalClose,
+  setMessages,
 }) {
   const [formData, setFormData] = useState({
     username: "",
@@ -49,9 +49,13 @@ function RegisterLoginModal({
           localStorage.setItem("user_id", data.user_id);
           localStorage.setItem("username", data.username);
 
+          // Set initial messages (new user gets default welcome message)
+          setMessages([
+            { sender: "bot", text: "Hello! How can I assist you today?" },
+          ]);
+
           // Close modal and redirect to interface
           handleRegisterLoginModalClose();
-          // You might want to call a function to update the app state here
           console.log("Registration successful:", data);
         } else {
           console.error("Registration failed:", data.error);
@@ -70,7 +74,7 @@ function RegisterLoginModal({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            username: formData.username, // or email depending on your backend
+            username: formData.username,
             password: formData.password,
           }),
         });
@@ -83,9 +87,18 @@ function RegisterLoginModal({
           localStorage.setItem("user_id", data.user_id);
           localStorage.setItem("username", data.username);
 
+          // Load user's chat history from the login response
+          if (data.chat_history && data.chat_history.length > 0) {
+            setMessages(data.chat_history);
+          } else {
+            // Fallback to default message if no history
+            setMessages([
+              { sender: "bot", text: "Hello! How can I assist you today?" },
+            ]);
+          }
+
           // Close modal and redirect to interface
           handleRegisterLoginModalClose();
-          // You might want to call a function to update the app state here
           console.log("Login successful:", data);
         } else {
           console.error("Login failed:", data.error);
@@ -151,7 +164,9 @@ function RegisterLoginModal({
                   onChange={handleInputChange}
                   required
                 />
-                <button className="form-submit-button"  type="submit">Register</button>
+                <button className="form-submit-button" type="submit">
+                  Register
+                </button>
               </form>
               <p>
                 Already have an account?{" "}
@@ -188,7 +203,9 @@ function RegisterLoginModal({
                   onChange={handleInputChange}
                   required
                 />
-                <button className="form-submit-button" type="submit">Login</button>
+                <button className="form-submit-button" type="submit">
+                  Login
+                </button>
               </form>
               <p>
                 Don't have an account?{" "}

@@ -27,9 +27,35 @@ function App() {
     if (token && userId && username) {
       setIsAuthenticated(true);
       setUserInfo({ userId, username });
-      // Optionally verify token with backend here
+      // Load user's chat history
+      loadChatHistory(token);
     }
   }, []);
+
+  const loadChatHistory = async (token) => {
+    try {
+      const response = await fetch("http://localhost:8123/chat-history", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.chat_history && data.chat_history.length > 0) {
+          setMessages(data.chat_history);
+        }
+      } else {
+        console.log("Could not load chat history");
+        // Keep default welcome message if no history available
+      }
+    } catch (error) {
+      console.log("Error loading chat history:", error);
+      // Keep default welcome message if error occurs
+    }
+  };
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -107,6 +133,8 @@ function App() {
       setIsAuthenticated(true);
       setUserInfo({ userId, username });
       setInterfaceState(true); // Go to interface after successful auth
+      // Load chat history for newly authenticated user
+      loadChatHistory(token);
     }
   };
 
@@ -142,6 +170,31 @@ function App() {
     }
   };
 
+  const handleClearChat = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await fetch("http://localhost:8123/clear-chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        // Reset messages to default welcome message
+        setMessages([
+          { sender: "bot", text: "Hello! How can I assist you today?" },
+        ]);
+      } else {
+        console.error("Failed to clear chat history");
+      }
+    } catch (error) {
+      console.error("Error clearing chat:", error);
+    }
+  };
+
   const handleAboutToggle = () => {
     setIsAbout((prevState) => !prevState);
   };
@@ -152,6 +205,7 @@ function App() {
         isAuthenticated={isAuthenticated}
         userInfo={userInfo}
         handleLogout={handleLogout}
+        handleClearChat={handleClearChat}
       />
 
       {/* Render modal only when register or login is true */}
@@ -161,6 +215,7 @@ function App() {
         login={login}
         setLogin={setLogin}
         handleRegisterLoginModalClose={handleRegisterLoginModalClose}
+        setMessages={setMessages}
       />
 
       {!interfaceState ? (
