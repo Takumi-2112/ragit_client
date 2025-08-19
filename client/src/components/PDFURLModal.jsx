@@ -19,7 +19,7 @@ function PDFURLModal({ pdf, setPDF, url, stURL, handlePDFURLModalClose }) {
       formData.append("file", pdf);
 
       try {
-        const response = await fetch("http://localhost:8080/upload-pdf", {
+        const response = await fetch("http://localhost:8123/upload-pdf", {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${token}` // Add auth token
@@ -46,7 +46,7 @@ function PDFURLModal({ pdf, setPDF, url, stURL, handlePDFURLModalClose }) {
       }
     } else if (url) {
       try {
-        const response = await fetch("http://localhost:8080/ingest-url", {
+        const response = await fetch("http://localhost:8123/ingest-url", {
           method: "POST",
           headers: { 
             "Content-Type": "application/json",

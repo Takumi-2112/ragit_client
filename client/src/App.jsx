@@ -42,7 +42,7 @@ function App() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:8080/message", {
+      const response = await fetch("http://localhost:8123/message", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -116,7 +116,7 @@ function App() {
 
       // Call logout endpoint (optional - JWT is stateless)
       if (token) {
-        await fetch("http://localhost:8080/logout", {
+        await fetch("http://localhost:8123/logout", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

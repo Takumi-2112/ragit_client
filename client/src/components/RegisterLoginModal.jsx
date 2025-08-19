@@ -29,7 +29,7 @@ function RegisterLoginModal({
     if (register) {
       // Handle registration
       try {
-        const response = await fetch("http://localhost:8080/register", {
+        const response = await fetch("http://localhost:8123/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -64,7 +64,7 @@ function RegisterLoginModal({
     } else if (login) {
       // Handle login
       try {
-        const response = await fetch("http://localhost:8080/login", {
+        const response = await fetch("http://localhost:8123/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
