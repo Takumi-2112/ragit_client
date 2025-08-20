@@ -1,23 +1,25 @@
 .master-chatfield {
+  flex: 1;
+  width: 80%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  gap: 1rem;
-  width: 100%;
-  height: 90dvh; /* or a fixed parent size */
-  overflow: hidden;
-  margin-bottom: 0;
+  justify-content: center;
+  margin: 2% 0;
+  box-sizing: border-box;
 }
 
 .messages-container {
   width: 80%;
-  height: 300px;
+  max-height: 50vh;
+  border: solid 3px #ffffff;
+  border-radius: 20px;
+ box-shadow: #ffffff 0px 0px 5px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  padding: 1rem;
+  padding: 2%;
   scrollbar-width: thin;
   scrollbar-color: #ffffff;
   flex-shrink: 0;
@@ -35,27 +37,30 @@
 
 .message {
   display: inline-block;
-  max-width: 80%;
+  max-width: 70%;
   padding: 0.5rem 1rem;
   border-radius: 12px;
   word-wrap: break-word;
   font-family: "Exo 2", sans-serif;
+  font-size: 1rem;
   color: white;
 }
 
 .bot-message {
+  margin: 1% 0;
   background-color: #2a2a2a;
   align-self: flex-start;
-  max-width: 60%;
+  max-width: 70%;
 }
 
 .user-message {
+  margin: 1% 0;
   background-color: #eaeaea;
   color: #05005b;
   font-weight: 600;
   align-self: flex-end;
   text-align: right;
-  max-width: 50%;
+  max-width: 70%;
 }
 
 .textarea-container {
@@ -63,17 +68,18 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 20%;
+  max-height: 10%;
 }
 
 .textarea-wrapper {
   display: flex;
   align-items: center;
-  width: 70%;
+  width: 83%;
   background-color: inherit;
   border: solid 3px #ffffff;
   border-radius: 20px;
-  margin: 0 0 2% 0;
+  margin: 3% 0;
+  flex-shrink: 0;
 }
 
 textarea {
@@ -81,9 +87,7 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1% 1.5% 0 1.5%;
   width: 95%;
-  border-radius: 20px;
   font-family: "Exo 2", sans-serif;
   font-size: 1.2rem;
   background-color: inherit;
@@ -136,7 +140,7 @@ textarea:focus {
   }
 }
 
-.send-button{
+.send-button {
   font-family: "orbitron", sans-serif;
   font-size: 1.2rem;
   font-weight: 600;

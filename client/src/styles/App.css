@@ -42,7 +42,7 @@
   gap: 1rem;
   width: 100%;
   flex: 1; /* Added flex: 1 to take up remaining space */
-  padding: 10% 0 2rem 0; /* Added bottom padding for spacing above footer */
+  padding: 7% 0 0 0; /* Added bottom padding for spacing above footer */
   box-sizing: border-box;
 }
 
