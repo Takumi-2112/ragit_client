@@ -1,26 +1,38 @@
 import "../styles/Navbar.css";
 import logoTitle from "../assets/azranhq-white.png";
 
-function Navbar({ isAuthenticated, userInfo, handleLogout }) {
+function Navbar({ isAuthenticated, userInfo, handleLogout, menuOpen, toggleMenu }) {
   return (
-    <div className="navbar">
+    <div className={`navbar ${menuOpen ? "menu-open" : ""}`}>
       <h1 className="nav-title">RAG it!</h1>
       {/* <div className="nav-title-logo"><img className='nav-logo-image' src={logoTitle} alt="" /></div> */}
-      <div className="nav-links">
-        {/* <a href="/">
-          <span className="lotus">Lotus</span>
-          <span className="verse">Verse</span>
-        </a> */}
+      
+      {/* Hamburger icon - positioned correctly */}
+      <div className="hamburger" onClick={toggleMenu}>
+        <div className={`bar ${menuOpen ? "open" : ""}`}></div>
+        <div className={`bar ${menuOpen ? "open" : ""}`}></div>
+        <div className={`bar ${menuOpen ? "open" : ""}`}></div>
+      </div>
+
+      {/* Navigation links */}
+      <div className={`nav-links ${menuOpen ? "show" : ""}`}>
         <a
           className="linkedin"
           href="https://www.linkedin.com/in/thomas-azran-b3427b311/"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           LinkedIn{" "}
           <span className="link">
             <i className="fa-brands fa-linkedin"></i>
           </span>
         </a>
-        <a className="github" href="https://github.com/Takumi-2112/ragit_client">
+        <a 
+          className="github" 
+          href="https://github.com/Takumi-2112/ragit_client"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Github{" "}
           <span className="git">
             <i className="fa-brands fa-github"></i>
@@ -35,4 +47,5 @@ function Navbar({ isAuthenticated, userInfo, handleLogout }) {
     </div>
   );
 }
+
 export default Navbar;

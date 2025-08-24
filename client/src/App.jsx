@@ -17,7 +17,10 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [isAbout, setIsAbout] = useState(false);
-  const [isTyping, setIsTyping] = useState(false); // New state for typing indicator
+  const [isTyping, setIsTyping] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   // Check if user is already authenticated on app load
   useEffect(() => {
@@ -210,9 +213,10 @@ function App() {
         userInfo={userInfo}
         handleLogout={handleLogout}
         handleClearChat={handleClearChat}
+        menuOpen={menuOpen}
+        toggleMenu={toggleMenu}
       />
 
-      {/* Render modal only when register or login is true */}
       <RegisterLoginModal
         register={register}
         setRegister={setRegister}

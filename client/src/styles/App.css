@@ -1,4 +1,6 @@
-#root, html, body{
+#root,
+html,
+body {
   margin: 0;
   padding: 0;
   min-height: 100dvh; /* Changed from height to min-height */
@@ -7,25 +9,31 @@
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
-  align-items: center; 
-  font-family: 'Exo 2', sans-serif;
-  background: linear-gradient(45deg,  #000000 0%, #05005b 35%, #0090d8 100%);
+  align-items: center;
+  font-family: "Exo 2", sans-serif;
+  background: linear-gradient(45deg, #000000 0%, #05005b 35%, #0090d8 100%);
   animation: gradient 12s ease infinite;
   background-size: 250% 200%;
   color: #ffffff;
-  
-  h1{
-    font-family: 'Orbitron', sans-serif;
+
+  h1 {
+    font-family: "Orbitron", sans-serif;
   }
 }
 
 @keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-.master-app{
+.master-app {
   display: flex;
   flex-direction: column;
   justify-content: flex-start; /* Changed from space-between to flex-start */
@@ -34,7 +42,7 @@
   width: 100%;
 }
 
-.app-content{
+.app-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -46,7 +54,7 @@
   box-sizing: border-box;
 }
 
-.app-title{
+.app-title {
   width: 50%;
   display: flex;
   text-align: center;
@@ -54,7 +62,8 @@
 }
 
 /* Arrow starting styles */
-.down-arrow, .up-arrow {
+.down-arrow,
+.up-arrow {
   font-size: 2rem;
   margin-top: -1rem;
   color: #ffffff;
@@ -64,13 +73,21 @@
 
 /* Animation keyframes */
 @keyframes rotateDown {
-  0%   { transform: rotate(180deg); }
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 @keyframes rotateUp {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(180deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
 }
 
 /* Apply animations when switching */
@@ -82,7 +99,7 @@
   animation: rotateUp 0.3s ease forwards;
 }
 
-.chat-access{
+.chat-access {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -92,14 +109,14 @@
   color: #05005b;
   border-radius: 15px;
   padding: 1%;
-  font-family: 'orbitron', sans-serif;
+  font-family: "orbitron", sans-serif;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: 0.5s ease;
   animation: float 5s infinite;
 
-  &:hover{
+  &:hover {
     background-color: #00000000;
     border: 3px solid #ffffff;
     padding: 1.2%;
@@ -111,7 +128,99 @@
 }
 
 @keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Mobile phones */
+@media (min-width: 320px) and (max-width: 479px) {
+  .master-app {
+    min-height: 100dvh;
+  }
+  
+  .app-content {
+    gap: 2rem;
+  }
+  .app-title {
+    padding: 10% 0 0 0;
+    width: 90%;
+  }
+
+  .up-arrow,
+  .down-arrow {
+    font-size: 1.5rem;
+  }
+
+  .invisible-about h2 {
+    justify-self: center;
+    width: 70%;
+    text-align: center;
+  }
+
+  .chat-access {
+    font-size: 2rem;
+    padding: 2%;
+    margin: 0 0 10% 0;
+  }
+
+  .chat-access:hover {
+    font-size: 2rem;
+    padding: 2%; 
+  }
+}
+
+/* Large phones and small tablets */
+@media (min-width: 480px) and (max-width: 767px) {
+  .app-content {
+    gap: 2.5rem;
+  }
+  .app-title {
+    padding: 10% 0 0 0;
+    width: 80%;
+  }
+
+  .up-arrow,
+  .down-arrow {
+    font-size: 1.8rem;
+  }
+
+  .invisible-about h2 {
+    justify-self: center;
+    width: 60%;
+    text-align: center;
+  }
+
+  .chat-access {
+    font-size: 2.5rem;
+    padding: 1.5%;
+    margin: 0 0 10% 0;
+  }
+
+  .chat-access:hover {
+    font-size: 2.5rem;
+    padding: 1.5%;
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* Laptops */
+@media (min-width: 1024px) and (max-width: 1199px) {
+}
+
+/* Desktops */
+@media (min-width: 1200px) and (max-width: 1599px) {
+}
+
+/* Large desktops / 4K */
+@media (min-width: 1600px) {
 }
