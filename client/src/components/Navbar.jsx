@@ -39,9 +39,9 @@ function Navbar({ isAuthenticated, userInfo, handleLogout, menuOpen, toggleMenu 
           </span>
         </a>
         {isAuthenticated && (
-          <button className="logout-button" onClick={handleLogout}>
-            Logout <span>{userInfo && `(${userInfo.username})`}</span>
-          </button>
+            <span className="logout-button" onClick={handleLogout}>
+              Logout <span>{userInfo && `(${userInfo.username})`}</span>
+            </span>
         )}
       </div>
     </div>

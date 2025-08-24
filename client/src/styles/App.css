@@ -144,7 +144,7 @@ body {
   .master-app {
     min-height: 100dvh;
   }
-  
+
   .app-content {
     gap: 2rem;
   }
@@ -165,13 +165,13 @@ body {
   }
 
   .chat-access {
-    font-size: 2rem;
+    font-size: 1.6rem;
     padding: 2%;
     margin: 0 0 10% 0;
   }
 
   .chat-access:hover {
-    font-size: 2rem;
+    font-size: 1.6rem;
     padding: 2%; 
   }
 }
@@ -198,13 +198,13 @@ body {
   }
 
   .chat-access {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     padding: 1.5%;
     margin: 0 0 10% 0;
   }
 
   .chat-access:hover {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     padding: 1.5%;
   }
 }

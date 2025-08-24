@@ -128,7 +128,6 @@
 /* Enhanced menu open state */
 .navbar.menu-open {
   backdrop-filter: blur(25px);
-  background-color: #000141d7;
 }
 
 /* Mobile Styles */
@@ -189,7 +188,7 @@
 
   .nav-links.show a:nth-child(1) {
     animation-delay: 0.1s;
-    margin: 15% 0 0 0;
+    margin: 20% 0 0 0;
   }
 
   .nav-links.show a:nth-child(2) {
@@ -252,8 +251,13 @@
 
   .nav-links a,
   .nav-links .logout-button {
-    font-size: 0.9rem;
-    min-width: 180px;
+    font-size: 1.2rem;
+    width: 70%;
+  }
+  
+  .nav-links a:hover,
+  .nav-links .logout-button:hover {
+    font-size: 1.2rem;
   }
 }
 
@@ -274,14 +278,18 @@
 
   .nav-links a,
   .nav-links .logout-button {
-    font-size: 1.1rem;
-    min-width: 220px;
+    font-size: 1.2rem;
+    width: 60%;
+  }
+
+  .nav-links a:hover,
+  .nav-links .logout-button:hover {
+    font-size: 1.2rem;
   }
 }
 
 /* Laptops */
 @media (min-width: 1024px) and (max-width: 1199px) {
-
 }
 
 /* Desktops */

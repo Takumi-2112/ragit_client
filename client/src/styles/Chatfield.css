@@ -38,7 +38,7 @@
 .message {
   display: inline-block;
   max-width: 70%;
-  padding: 0.5rem 1rem;
+  padding: 0.5% 1.5%;
   border-radius: 12px;
   word-wrap: break-word;
   font-family: "Exo 2", sans-serif;
@@ -52,7 +52,7 @@
   align-self: flex-start;
   max-width: 70%;
   line-height: 1.5;
-  padding: 2%;
+  padding: 1% 1.5%;
 }
 
 .user-message {
@@ -117,7 +117,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-height: 10%;
 }
 
 .textarea-wrapper {
@@ -127,9 +126,24 @@
   background-color: inherit;
   border: solid 3px #ffffff;
   border-radius: 20px;
-  margin: 3% 0;
+  margin: 2% 0;
   flex-shrink: 0;
+  height: 8%;    /* keep everything in % */
 }
+
+.chatfield-textarea {
+  flex: 1;
+  width: 90%;
+  height: 100%;     /* fill wrapper height */
+  font-family: "Exo 2", sans-serif;
+  font-size: 1rem;
+  background-color: inherit;
+  color: #ffffff;
+  border: none;
+  resize: none;
+  cursor: text;
+}
+
 
 textarea {
   flex: 1;
@@ -218,7 +232,18 @@ textarea:disabled {
 
 /* Mobile phones */
 @media (min-width: 320px) and (max-width: 479px) {
- 
+ .master-chatfield{
+  width: 100%;
+ }
+
+ .message{
+  font-size: 0.8rem;
+  max-width: 80%;
+ }
+
+ textarea{
+  font-size: 0.8rem;
+ }
 }
 
 /* Large phones and small tablets */
