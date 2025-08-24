@@ -10,6 +10,7 @@ function Chatfield({
   handleSend,
   handleURLClick,
   handlePDFClick,
+  isTyping // Add isTyping prop
 }) {
   const messagesContainerRef = useRef(null);
 
@@ -17,7 +18,7 @@ function Chatfield({
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, isTyping]); // Add isTyping to dependency array
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -47,6 +48,17 @@ function Chatfield({
             )}
           </div>
         ))}
+        
+        {/* Typing indicator */}
+        {isTyping && (
+          <div className="message bot-message typing-indicator">
+            <div className="typing-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        )}
       </div>
       <div className="textarea-container">
         <div className="textarea-wrapper">
@@ -59,19 +71,28 @@ function Chatfield({
               name="chatfield"
               className="chatfield-textarea"
               placeholder="Enter your prompt here . . ."
+              disabled={isTyping} // Disable input while typing
             />
             <div className="textarea-icons">
               <div className="textarea-input-buttons">
               <i
                 className="fa-solid fa-file-pdf pdf"
                 onClick={handlePDFClick}
+                style={{ opacity: isTyping ? 0.5 : 1, pointerEvents: isTyping ? 'none' : 'auto' }}
               ></i>
               <i
                 className="fa-solid fa-globe website"
                 onClick={handleURLClick}
+                style={{ opacity: isTyping ? 0.5 : 1, pointerEvents: isTyping ? 'none' : 'auto' }}
               ></i>
               </div>
-              <button className="send-button">Send</button>
+              <button 
+                className="send-button" 
+                disabled={isTyping}
+                style={{ opacity: isTyping ? 0.5 : 1 }}
+              >
+                {isTyping ? 'Sending...' : 'Send'}
+              </button>
             </div>
           </form>
         </div>

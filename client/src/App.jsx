@@ -17,6 +17,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [isAbout, setIsAbout] = useState(false);
+  const [isTyping, setIsTyping] = useState(false); // New state for typing indicator
 
   // Check if user is already authenticated on app load
   useEffect(() => {
@@ -64,6 +65,7 @@ function App() {
     const userMessage = { sender: "user", text: input };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput("");
+    setIsTyping(true); // Start typing indicator
 
     try {
       const token = localStorage.getItem("token");
@@ -102,6 +104,8 @@ function App() {
             : "Server error; Server not responding ⚠️ Wait a few seconds and try again ✅",
         },
       ]);
+    } finally {
+      setIsTyping(false); // Stop typing indicator
     }
   };
 
@@ -252,6 +256,7 @@ function App() {
             handleSend={handleSend}
             handleInterfaceToggle={handleInterfaceToggle}
             isAuthenticated={isAuthenticated}
+            isTyping={isTyping} // Pass typing state to Interface
           />
         </div>
       )}

@@ -23,22 +23,32 @@ function RegisterLoginModal({
     }));
   };
 
+  const clearFormData = () => {
+    setFormData({
+      username: "",
+      email: "",
+      password: "",
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (register) {
-      // Handle registration
+      
       try {
+        const payload = {
+          username: formData.username.trim(),
+          email: formData.email.trim().toLowerCase(),
+          password: formData.password  
+        };
+
         const response = await fetch("http://localhost:8123/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            username: formData.username,
-            email: formData.email,
-            password: formData.password,
-          }),
+          body: JSON.stringify(payload),
         });
 
         const data = await response.json();
@@ -56,27 +66,33 @@ function RegisterLoginModal({
 
           // Close modal and redirect to interface
           handleRegisterLoginModalClose();
-          console.log("Registration successful:", data);
+          console.log("Registration successful");
         } else {
           console.error("Registration failed:", data.error);
           alert(data.error);
         }
+
+        // Clear sensitive data after processing response
+        clearFormData();
       } catch (error) {
         console.error("Registration error:", error);
         alert("Registration failed. Please try again.");
+        clearFormData();
       }
     } else if (login) {
       // Handle login
       try {
+        const payload = {
+          username: formData.username.trim(),
+          password: formData.password  // Send plain text password over HTTPS
+        };
+
         const response = await fetch("http://localhost:8123/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            username: formData.username,
-            password: formData.password,
-          }),
+          body: JSON.stringify(payload),
         });
 
         const data = await response.json();
@@ -99,23 +115,20 @@ function RegisterLoginModal({
 
           // Close modal and redirect to interface
           handleRegisterLoginModalClose();
-          console.log("Login successful:", data);
+          console.log("Login successful");
         } else {
           console.error("Login failed:", data.error);
           alert(data.error);
         }
+
+        // Clear sensitive data after processing response
+        clearFormData();
       } catch (error) {
         console.error("Login error:", error);
         alert("Login failed. Please try again.");
+        clearFormData();
       }
     }
-
-    // Reset form
-    setFormData({
-      username: "",
-      email: "",
-      password: "",
-    });
   };
 
   // Only render the modal if register or login is true
@@ -130,7 +143,10 @@ function RegisterLoginModal({
           <div className="modal-close-container">
             <i
               className="fa-solid fa-xmark close-modal"
-              onClick={handleRegisterLoginModalClose}
+              onClick={() => {
+                clearFormData();
+                handleRegisterLoginModalClose();
+              }}
             ></i>
           </div>
           {register && (
@@ -144,6 +160,7 @@ function RegisterLoginModal({
                   placeholder="Username"
                   value={formData.username}
                   onChange={handleInputChange}
+                  autoComplete="username"
                   required
                 />
                 <input
@@ -153,6 +170,7 @@ function RegisterLoginModal({
                   placeholder="Email"
                   value={formData.email}
                   onChange={handleInputChange}
+                  autoComplete="email"
                   required
                 />
                 <input
@@ -162,6 +180,7 @@ function RegisterLoginModal({
                   placeholder="Password"
                   value={formData.password}
                   onChange={handleInputChange}
+                  autoComplete="new-password"
                   required
                 />
                 <button className="form-submit-button" type="submit">
@@ -172,6 +191,7 @@ function RegisterLoginModal({
                 Already have an account?{" "}
                 <span
                   onClick={() => {
+                    clearFormData();
                     setRegister(false);
                     setLogin(true);
                   }}
@@ -192,6 +212,7 @@ function RegisterLoginModal({
                   placeholder="Username"
                   value={formData.username}
                   onChange={handleInputChange}
+                  autoComplete="username"
                   required
                 />
                 <input
@@ -201,6 +222,7 @@ function RegisterLoginModal({
                   placeholder="Password"
                   value={formData.password}
                   onChange={handleInputChange}
+                  autoComplete="current-password"
                   required
                 />
                 <button className="form-submit-button" type="submit">
@@ -211,6 +233,7 @@ function RegisterLoginModal({
                 Don't have an account?{" "}
                 <span
                   onClick={() => {
+                    clearFormData();
                     setLogin(false);
                     setRegister(true);
                   }}

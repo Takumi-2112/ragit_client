@@ -3,7 +3,15 @@ import "../styles/Interface.css";
 import Chatfield from "./Chatfield";
 import PDFURLModal from "./PDFURLModal";
 
-function Interface({ messages, setMessages, input, setInput, handleSend, handleInterrfaceToggle }) {
+function Interface({ 
+  messages, 
+  setMessages, 
+  input, 
+  setInput, 
+  handleSend, 
+  handleInterfaceToggle, 
+  isTyping // Add isTyping prop
+}) {
   const [modalOpen, setModalOpen] = useState(false);
   const [pdf, setPDF] = useState(false);
   const [url, setURL] = useState(false);
@@ -35,8 +43,8 @@ function Interface({ messages, setMessages, input, setInput, handleSend, handleI
           pdf={pdf}
           setPDF={setPDF}
           url={url}
-          stURL={setURL}
-         handlePDFURLModalClose={handlePDFURLModalClose}
+          setURL={setURL}
+          handlePDFURLModalClose={handlePDFURLModalClose}
         />
       )}
       <div className="master-interface">
@@ -50,6 +58,7 @@ function Interface({ messages, setMessages, input, setInput, handleSend, handleI
             handleSend={handleSend}
             handleURLClick={handleURLClick}
             handlePDFClick={handlePDFClick}
+            isTyping={isTyping} // Pass isTyping to Chatfield
           />
         </div>
       </div>
