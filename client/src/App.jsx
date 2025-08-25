@@ -8,9 +8,8 @@ import "./styles/App.css";
 
 function App() {
   const [interfaceState, setInterfaceState] = useState(false);
-  const [messages, setMessages] = useState([
-    { sender: "bot", text: "Hello! How can I assist you today?" },
-  ]);
+  // Initialize messages as empty array instead of with default message
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [register, setRegister] = useState(false);
   const [login, setLogin] = useState(false);
@@ -19,6 +18,8 @@ function App() {
   const [isAbout, setIsAbout] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  // Add loading state to prevent premature rendering
+  const [isLoadingHistory, setIsLoadingHistory] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -30,7 +31,11 @@ function App() {
     if (token && userId && username) {
       setIsAuthenticated(true);
       setUserInfo({ userId, username });
+      setIsLoadingHistory(true);
       loadChatHistory(token);
+    } else {
+      // If not authenticated, set default welcome message
+      setMessages([{ sender: "bot", text: "Hello! How can I assist you today?" }]);
     }
   }, []);
 
@@ -46,16 +51,24 @@ function App() {
 
       if (response.ok) {
         const data = await response.json();
-        if (data.chat_history && data.chat_history.length > 0) {
+        // Always set messages based on what the server returns
+        if (data.chat_history && Array.isArray(data.chat_history) && data.chat_history.length > 0) {
           setMessages(data.chat_history);
+        } else {
+          // If server returns empty history, set default message
+          setMessages([{ sender: "bot", text: "Hello! How can I assist you today?" }]);
         }
       } else {
-        console.log("Could not load chat history");
-        // Keep default welcome message if no history available
+        console.log("Could not load chat history - Response not OK");
+        // On error, set default welcome message
+        setMessages([{ sender: "bot", text: "Hello! How can I assist you today?" }]);
       }
     } catch (error) {
       console.log("Error loading chat history:", error);
-      // Keep default welcome message if error occurs
+      // On error, set default welcome message
+      setMessages([{ sender: "bot", text: "Hello! How can I assist you today?" }]);
+    } finally {
+      setIsLoadingHistory(false);
     }
   };
 
@@ -66,7 +79,7 @@ function App() {
     const userMessage = { sender: "user", text: input };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput("");
-    setIsTyping(true); // Start typing indicator
+    setIsTyping(true);
 
     try {
       const token = localStorage.getItem("token");
@@ -82,7 +95,6 @@ function App() {
 
       if (!response.ok) {
         if (response.status === 401) {
-          // Token expired or invalid
           handleLogout();
           throw new Error("Authentication required. Please log in again.");
         }
@@ -106,7 +118,7 @@ function App() {
         },
       ]);
     } finally {
-      setIsTyping(false); // Stop typing indicator
+      setIsTyping(false);
     }
   };
 
@@ -116,10 +128,8 @@ function App() {
 
   const handleGetStartedClick = () => {
     if (isAuthenticated) {
-      // User is already authenticated, go to interface
       setInterfaceState(true);
     } else {
-      // User needs to authenticate, show register modal
       setRegister(true);
       setLogin(false);
     }
@@ -129,7 +139,6 @@ function App() {
     setRegister(false);
     setLogin(false);
 
-    // Check if user just authenticated
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("user_id");
     const username = localStorage.getItem("username");
@@ -137,8 +146,9 @@ function App() {
     if (token && userId && username) {
       setIsAuthenticated(true);
       setUserInfo({ userId, username });
-      setInterfaceState(true); // Go to interface after successful auth
+      setInterfaceState(true);
       // Load chat history for newly authenticated user
+      setIsLoadingHistory(true);
       loadChatHistory(token);
     }
   };
@@ -147,7 +157,6 @@ function App() {
     try {
       const token = localStorage.getItem("token");
 
-      // Call logout endpoint (optional - JWT is stateless)
       if (token) {
         await fetch("https://ragit-server.onrender.com/logout", {
           method: "POST",
@@ -160,12 +169,10 @@ function App() {
     } catch (error) {
       console.log("Logout endpoint call failed (not critical):", error);
     } finally {
-      // Always clear local storage and reset state, even if endpoint fails
       localStorage.removeItem("token");
       localStorage.removeItem("user_id");
       localStorage.removeItem("username");
 
-      // Reset app state
       setIsAuthenticated(false);
       setUserInfo(null);
       setInterfaceState(false);
@@ -188,7 +195,6 @@ function App() {
       });
 
       if (response.ok) {
-        // Reset messages to default welcome message
         setMessages([
           { sender: "bot", text: "Hello! How can I assist you today?" },
         ]);
@@ -203,6 +209,26 @@ function App() {
   const handleAboutToggle = () => {
     setIsAbout((prevState) => !prevState);
   };
+
+  // Show loading state while fetching chat history
+  if (isLoadingHistory) {
+    return (
+      <div className="master-app">
+        <Navbar
+          isAuthenticated={isAuthenticated}
+          userInfo={userInfo}
+          handleLogout={handleLogout}
+          handleClearChat={handleClearChat}
+          menuOpen={menuOpen}
+          toggleMenu={toggleMenu}
+        />
+        <div className="app-content" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+          <p>Loading chat history...</p>
+        </div>
+        <Footer login={login} />
+      </div>
+    );
+  }
 
   return (
     <div className="master-app">
@@ -258,7 +284,7 @@ function App() {
             handleSend={handleSend}
             handleInterfaceToggle={handleInterfaceToggle}
             isAuthenticated={isAuthenticated}
-            isTyping={isTyping} // Pass typing state to Interface
+            isTyping={isTyping}
           />
         </div>
       )}

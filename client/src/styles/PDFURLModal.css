@@ -136,7 +136,15 @@ form{
 
 /* Mobile phones */
 @media (min-width: 320px) and (max-width: 479px) {
- 
+ .modal-content {
+    width: 80%;
+    padding: 5% 3%;
+  }
+
+  .modal-inputs input{
+    width: 80%;
+    padding: 3% 2%;
+  }
 }
 
 /* Large phones and small tablets */
