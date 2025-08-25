@@ -22,7 +22,6 @@ function App() {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  // Check if user is already authenticated on app load
   useEffect(() => {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("user_id");
@@ -31,7 +30,6 @@ function App() {
     if (token && userId && username) {
       setIsAuthenticated(true);
       setUserInfo({ userId, username });
-      // Load user's chat history
       loadChatHistory(token);
     }
   }, []);
