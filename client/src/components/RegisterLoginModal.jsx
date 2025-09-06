@@ -1,6 +1,10 @@
 import { useState } from "react";
 import "../styles/RegisterLoginModal.css";
 
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://ragit-server.onrender.com' 
+  : 'http://localhost:8123';
+
 function RegisterLoginModal({
   register,
   setRegister,
@@ -14,6 +18,8 @@ function RegisterLoginModal({
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -21,6 +27,8 @@ function RegisterLoginModal({
       ...prev,
       [name]: value,
     }));
+    // Clear error message when user starts typing
+    if (errorMessage) setErrorMessage("");
   };
 
   const clearFormData = () => {
@@ -29,21 +37,36 @@ function RegisterLoginModal({
       email: "",
       password: "",
     });
+    setErrorMessage("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setErrorMessage("");
 
     if (register) {
-      
       try {
+        // Client-side validation
+        if (formData.username.trim().length < 3) {
+          setErrorMessage("Username must be at least 3 characters long");
+          setIsLoading(false);
+          return;
+        }
+        
+        if (formData.password.length < 6) {
+          setErrorMessage("Password must be at least 6 characters long");
+          setIsLoading(false);
+          return;
+        }
+
         const payload = {
           username: formData.username.trim(),
           email: formData.email.trim().toLowerCase(),
-          password: formData.password  
+          password: formData.password  // Send plain text - server will hash it
         };
 
-        const response = await fetch("http://localhost:8123/register", {
+        const response = await fetch(`${API_BASE_URL}/register`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -69,25 +92,27 @@ function RegisterLoginModal({
           console.log("Registration successful");
         } else {
           console.error("Registration failed:", data.error);
-          alert(data.error);
+          setErrorMessage(data.error || "Registration failed");
         }
 
         // Clear sensitive data after processing response
         clearFormData();
       } catch (error) {
         console.error("Registration error:", error);
-        alert("Registration failed. Please try again.");
+        setErrorMessage("Registration failed. Please try again.");
         clearFormData();
+      } finally {
+        setIsLoading(false);
       }
     } else if (login) {
       // Handle login
       try {
         const payload = {
           username: formData.username.trim(),
-          password: formData.password  // Send plain text password over HTTPS
+          password: formData.password  // Send plain text - server will verify against hash
         };
 
-        const response = await fetch("http://localhost:8123/login", {
+        const response = await fetch(`${API_BASE_URL}/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -118,15 +143,17 @@ function RegisterLoginModal({
           console.log("Login successful");
         } else {
           console.error("Login failed:", data.error);
-          alert(data.error);
+          setErrorMessage(data.error || "Login failed");
         }
 
         // Clear sensitive data after processing response
         clearFormData();
       } catch (error) {
         console.error("Login error:", error);
-        alert("Login failed. Please try again.");
+        setErrorMessage("Login failed. Please try again.");
         clearFormData();
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -152,16 +179,22 @@ function RegisterLoginModal({
           {register && (
             <>
               <h2>Register</h2>
+              {errorMessage && (
+                <div style={{ color: 'red', marginBottom: '10px', fontSize: '14px' }}>
+                  {errorMessage}
+                </div>
+              )}
               <form onSubmit={handleSubmit}>
                 <input
                   className="auth-inputs"
                   type="text"
                   name="username"
-                  placeholder="Username"
+                  placeholder="Username (min 3 characters)"
                   value={formData.username}
                   onChange={handleInputChange}
                   autoComplete="username"
                   required
+                  disabled={isLoading}
                 />
                 <input
                   className="auth-inputs"
@@ -172,28 +205,37 @@ function RegisterLoginModal({
                   onChange={handleInputChange}
                   autoComplete="email"
                   required
+                  disabled={isLoading}
                 />
                 <input
                   className="auth-inputs"
                   type="password"
                   name="password"
-                  placeholder="Password"
+                  placeholder="Password (min 6 characters)"
                   value={formData.password}
                   onChange={handleInputChange}
                   autoComplete="new-password"
                   required
+                  disabled={isLoading}
                 />
-                <button className="form-submit-button" type="submit">
-                  Register
+                <button 
+                  className="form-submit-button" 
+                  type="submit"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Registering..." : "Register"}
                 </button>
               </form>
               <p>
                 Already have an account?{" "}
                 <span
+                  style={{ cursor: isLoading ? 'not-allowed' : 'pointer' }}
                   onClick={() => {
-                    clearFormData();
-                    setRegister(false);
-                    setLogin(true);
+                    if (!isLoading) {
+                      clearFormData();
+                      setRegister(false);
+                      setLogin(true);
+                    }
                   }}
                 >
                   Login here
@@ -204,6 +246,11 @@ function RegisterLoginModal({
           {login && (
             <>
               <h2>Login</h2>
+              {errorMessage && (
+                <div style={{ color: 'red', marginBottom: '10px', fontSize: '14px' }}>
+                  {errorMessage}
+                </div>
+              )}
               <form onSubmit={handleSubmit}>
                 <input
                   className="auth-inputs"
@@ -214,6 +261,7 @@ function RegisterLoginModal({
                   onChange={handleInputChange}
                   autoComplete="username"
                   required
+                  disabled={isLoading}
                 />
                 <input
                   className="auth-inputs"
@@ -224,18 +272,26 @@ function RegisterLoginModal({
                   onChange={handleInputChange}
                   autoComplete="current-password"
                   required
+                  disabled={isLoading}
                 />
-                <button className="form-submit-button" type="submit">
-                  Login
+                <button 
+                  className="form-submit-button" 
+                  type="submit"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Logging in..." : "Login"}
                 </button>
               </form>
               <p>
                 Don't have an account?{" "}
                 <span
+                  style={{ cursor: isLoading ? 'not-allowed' : 'pointer' }}
                   onClick={() => {
-                    clearFormData();
-                    setLogin(false);
-                    setRegister(true);
+                    if (!isLoading) {
+                      clearFormData();
+                      setLogin(false);
+                      setRegister(true);
+                    }
                   }}
                 >
                   Register here
