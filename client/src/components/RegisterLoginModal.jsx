@@ -1,9 +1,7 @@
 import { useState } from "react";
 import "../styles/RegisterLoginModal.css";
 
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://ragit-server.onrender.com' 
-  : 'http://localhost:8123';
+
 
 function RegisterLoginModal({
   register,
@@ -66,7 +64,7 @@ function RegisterLoginModal({
           password: formData.password  // Send plain text - server will hash it
         };
 
-        const response = await fetch(`${API_BASE_URL}/register`, {
+        const response = await fetch("https://ragit-server.onrender.com/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -112,7 +110,7 @@ function RegisterLoginModal({
           password: formData.password  // Send plain text - server will verify against hash
         };
 
-        const response = await fetch(`${API_BASE_URL}/login`, {
+        const response = await fetch("https://ragit-server.onrender.com/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
