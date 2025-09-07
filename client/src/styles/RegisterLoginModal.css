@@ -171,6 +171,10 @@ form {
     width: 80%;
     padding: 3% 2.5%;
   }
+
+  .form-submit-button {
+    width: 70%;
+  }
 }
 
 /* Large phones and small tablets */
@@ -183,6 +187,10 @@ form {
   .auth-inputs {
     width: 70%;
     padding: 2.5% 2%;
+  }
+
+  .form-submit-button {
+    width: 60%;
   }
 }
 

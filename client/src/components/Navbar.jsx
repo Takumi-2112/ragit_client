@@ -1,5 +1,4 @@
 import "../styles/Navbar.css";
-import logoTitle from "../assets/azranhq-white.png";
 
 function Navbar({ isAuthenticated, userInfo, handleLogout, menuOpen, toggleMenu }) {
   return (

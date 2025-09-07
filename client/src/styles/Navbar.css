@@ -296,7 +296,7 @@
 @media (min-width: 1200px) and (max-width: 1599px) {
 }
 
-/* Large desktops / 4K */
+/* Large desktops  */
 @media (min-width: 1600px) {
   .nav-title {
     font-size: 4rem;
@@ -305,6 +305,11 @@
   .nav-links {
     gap: 3rem;
     font-size: 1.5rem;
+    transition: 0.25s ease;
+
+    a:hover{
+      font-size: 1.55rem;
+    }
   }
 
   .logout-button {

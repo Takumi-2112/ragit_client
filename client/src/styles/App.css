@@ -226,4 +226,13 @@ body {
 
 /* Large desktops / 4K */
 @media (min-width: 1600px) {
+  .chat-access {
+    font-size: 1.5rem;
+    padding: 1%;
+  }
+
+  .chat-access:hover {
+    font-size: 1.5rem;
+    padding: 1%;
+  }
 }

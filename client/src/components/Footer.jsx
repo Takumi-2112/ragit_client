@@ -13,9 +13,6 @@ function Footer() {
         <p className="footer-credits">
           Developed by <a href="https://www.linkedin.com/in/thomas-azran-b3427b311/">Thomas Azran</a>
         </p>
-        <div className="footer-links">
-          <p><i className="fa-brands fa-github"></i></p>
-        </div>
       </div>
     </footer>
   );
