@@ -160,7 +160,7 @@ function RegisterLoginModal({
     : modalTitle;
 
   return (
- <div className="modal">
+    <div className="modal">
       <div className="modal-overlay">
         <div className="modal-content">
           <div className="modal-close-container">
@@ -181,7 +181,7 @@ function RegisterLoginModal({
           
           <form onSubmit={handleSubmit}>
             <input
-              className={`auth-inputs ${errorMessage ? 'input-error' : ''}`}
+              className={`auth-inputs ${fieldErrors.username ? 'input-error' : ''}`}
               type="text"
               name="username"
               placeholder={`Username (min ${MIN_USERNAME_LENGTH} characters)`}
@@ -190,15 +190,11 @@ function RegisterLoginModal({
               autoComplete="username"
               required
               disabled={isLoading}
-              style={{
-                borderColor: errorMessage ? '#ff4444' : '',
-                borderWidth: errorMessage ? '2px' : '1px'
-              }}
             />
             
             {isRegistration && (
               <input
-                className={`auth-inputs ${errorMessage ? 'input-error' : ''}`}
+                className={`auth-inputs ${fieldErrors.email ? 'input-error' : ''}`}
                 type="email"
                 name="email"
                 placeholder="Email"
@@ -207,15 +203,11 @@ function RegisterLoginModal({
                 autoComplete="email"
                 required
                 disabled={isLoading}
-                style={{
-                  borderColor: errorMessage ? '#ff4444' : '',
-                  borderWidth: errorMessage ? '2px' : '1px'
-                }}
               />
             )}
             
             <input
-              className={`auth-inputs ${errorMessage ? 'input-error' : ''}`}
+              className={`auth-inputs ${fieldErrors.password ? 'input-error' : ''}`}
               type="password"
               name="password"
               placeholder={`Password (min ${MIN_PASSWORD_LENGTH} characters)`}
@@ -224,10 +216,6 @@ function RegisterLoginModal({
               autoComplete={isRegistration ? "new-password" : "current-password"}
               required
               disabled={isLoading}
-              style={{
-                borderColor: errorMessage ? '#ff4444' : '',
-                borderWidth: errorMessage ? '2px' : '1px'
-              }}
             />
             
             <button 
