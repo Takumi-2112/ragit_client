@@ -1,6 +1,6 @@
 import "../styles/PDFURLModal.css";
 
-function PDFURLModal({ pdf, setPDF, url, stURL, handlePDFURLModalClose }) {
+function PDFURLModal({ pdf, setPDF, url, setURL, handlePDFURLModalClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ function PDFURLModal({ pdf, setPDF, url, stURL, handlePDFURLModalClose }) {
       formData.append("file", pdf);
 
       try {
-        const response = await fetch("https://localhost:8223/upload-pdf", {
+        const response = await fetch("https://ragit-server.onrender.com/upload-pdf", {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${token}` // Add auth token
@@ -46,11 +46,11 @@ function PDFURLModal({ pdf, setPDF, url, stURL, handlePDFURLModalClose }) {
       }
     } else if (url) {
       try {
-        const response = await fetch("https://localhost:8223/ingest-url", {
+        const response = await fetch("https://ragit-server.onrender.com/ingest-url", {
           method: "POST",
           headers: { 
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}` // Add auth token
+            "Authorization": `Bearer ${token}` 
           },
           body: JSON.stringify({ url }),
         });
@@ -111,7 +111,7 @@ function PDFURLModal({ pdf, setPDF, url, stURL, handlePDFURLModalClose }) {
                     type="text"
                     id="url-input"
                     placeholder="Enter URL"
-                    onChange={(e) => stURL(e.target.value)}
+                    onChange={(e) => setURL(e.target.value)}
                   />
                 </>
               )}

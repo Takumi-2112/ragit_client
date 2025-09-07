@@ -41,7 +41,7 @@ function App() {
 
   const loadChatHistory = async (token) => {
     try {
-      const response = await fetch("https://localhost:8223/chat-history", {
+      const response = await fetch("https://ragit-server.onrender.com/chat-history", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +84,7 @@ function App() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("https://localhost:8223/message", {
+      const response = await fetch("https://ragit-server.onrender.com/message", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -158,7 +158,7 @@ function App() {
       const token = localStorage.getItem("token");
 
       if (token) {
-        await fetch("https://localhost:8223/logout", {
+        await fetch("https://ragit-server.onrender.com/logout", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -186,7 +186,7 @@ function App() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("https://localhost:8223/clear-chat", {
+      const response = await fetch("https://ragit-server.onrender.com/clear-chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
