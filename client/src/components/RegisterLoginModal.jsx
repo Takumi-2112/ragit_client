@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../styles/RegisterLoginModal.css";
 
 // Constants
-const API_BASE_URL = "https://ragit-server.onrender.com";
+const API_BASE_URL = "https://localhost:8223";
 const MIN_USERNAME_LENGTH = 3;
 const MIN_PASSWORD_LENGTH = 6;
 const DEFAULT_BOT_MESSAGE = { sender: "bot", text: "Hello! How can I assist you today?" };
