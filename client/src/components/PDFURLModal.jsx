@@ -1,11 +1,13 @@
 import "../styles/PDFURLModal.css";
+import { useState } from "react";
 
 function PDFURLModal({ pdf, setPDF, url, setURL, handlePDFURLModalClose }) {
+  const [isSubmittingPDF, setIsSubmittingPDF] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Get the token from localStorage
+    // get the token from localStorage
     const token = localStorage.getItem("token");
     
     if (!token) {
@@ -14,7 +16,8 @@ function PDFURLModal({ pdf, setPDF, url, setURL, handlePDFURLModalClose }) {
     }
 
     if (pdf) {
-      // If PDF is selected, send it to the server
+      setIsSubmittingPDF(true);
+      
       const formData = new FormData();
       formData.append("file", pdf);
 
@@ -22,7 +25,7 @@ function PDFURLModal({ pdf, setPDF, url, setURL, handlePDFURLModalClose }) {
         const response = await fetch("https://ragit-server.onrender.com/upload-pdf", {
           method: "POST",
           headers: {
-            "Authorization": `Bearer ${token}` // Add auth token
+            "Authorization": `Bearer ${token}` 
           },
           body: formData,
         });
@@ -43,6 +46,8 @@ function PDFURLModal({ pdf, setPDF, url, setURL, handlePDFURLModalClose }) {
       } catch (error) {
         console.error("Error uploading PDF:", error.message);
         alert(`Failed to upload PDF: ${error.message}`);
+      } finally {
+        setIsSubmittingPDF(false);
       }
     } else if (url) {
       try {
@@ -115,7 +120,12 @@ function PDFURLModal({ pdf, setPDF, url, setURL, handlePDFURLModalClose }) {
                   />
                 </>
               )}
-              <button className="form-submit-button">Submit</button>
+              <button 
+                className="form-submit-button" 
+                disabled={isSubmittingPDF}
+              >
+                {isSubmittingPDF ? "Submitting PDF..." : "Submit"}
+              </button>
             </div>
           </form>
         </div>

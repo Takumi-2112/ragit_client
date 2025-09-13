@@ -10,7 +10,7 @@ function Chatfield({
   handleSend,
   handleURLClick,
   handlePDFClick,
-  isTyping // Add isTyping prop
+  isTyping 
 }) {
   const messagesContainerRef = useRef(null);
 
@@ -18,12 +18,12 @@ function Chatfield({
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
     }
-  }, [messages, isTyping]); // Add isTyping to dependency array
+  }, [messages, isTyping]); 
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault(); // Prevent the default behavior (new line)
-      handleSend(e); // Submit the form
+      e.preventDefault(); 
+      handleSend(e); 
     }
   };
 
@@ -49,7 +49,6 @@ function Chatfield({
           </div>
         ))}
         
-        {/* Typing indicator */}
         {isTyping && (
           <div className="message bot-message typing-indicator">
             <div className="typing-dots">
@@ -71,7 +70,7 @@ function Chatfield({
               name="chatfield"
               className="chatfield-textarea"
               placeholder="Enter your prompt here . . ."
-              disabled={isTyping} // Disable input while typing
+              disabled={isTyping} 
             />
             <div className="textarea-icons">
               <div className="textarea-input-buttons">
@@ -80,11 +79,11 @@ function Chatfield({
                 onClick={handlePDFClick}
                 style={{ opacity: isTyping ? 0.5 : 1, pointerEvents: isTyping ? 'none' : 'auto' }}
               ></i>
-              <i
+              {/* <i
                 className="fa-solid fa-globe website"
                 onClick={handleURLClick}
                 style={{ opacity: isTyping ? 0.5 : 1, pointerEvents: isTyping ? 'none' : 'auto' }}
-              ></i>
+              ></i> */}
               </div>
               <button 
                 className="send-button" 

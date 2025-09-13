@@ -214,6 +214,36 @@ body {
 
 /* Tablets */
 @media (min-width: 768px) and (max-width: 1023px) {
+  .app-content {
+    gap: 3rem;
+  }
+  .app-title {
+    padding: 7% 0 0 0;
+    width: 70%;
+  }
+
+  .up-arrow,
+  .down-arrow {
+    font-size: 2rem;
+  }
+
+  .invisible-about h2 {
+    margin: 0 0 0 15%;
+    justify-self: center;
+    width: 50%;
+    text-align: center;
+  }
+
+  .chat-access {
+    font-size: 1.4rem;
+    padding: 2%;
+    margin: 0 0 10% 0;
+  }
+
+  .chat-access:hover {
+    font-size: 1.4rem;
+    padding: 2%;
+  }
 }
 
 /* Laptops */

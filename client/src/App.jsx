@@ -8,7 +8,6 @@ import "./styles/App.css";
 
 function App() {
   const [interfaceState, setInterfaceState] = useState(false);
-  // Initialize messages as empty array instead of with default message
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [register, setRegister] = useState(false);
@@ -18,7 +17,6 @@ function App() {
   const [isAbout, setIsAbout] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  // Add loading state to prevent premature rendering
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -34,7 +32,7 @@ function App() {
       setIsLoadingHistory(true);
       loadChatHistory(token);
     } else {
-      // If not authenticated, set default welcome message
+      // if not authenticated, set default welcome message
       setMessages([{ sender: "bot", text: "Hello! How can I assist you today?" }]);
     }
   }, []);
@@ -51,21 +49,19 @@ function App() {
 
       if (response.ok) {
         const data = await response.json();
-        // Always set messages based on what the server returns
         if (data.chat_history && Array.isArray(data.chat_history) && data.chat_history.length > 0) {
           setMessages(data.chat_history);
         } else {
-          // If server returns empty history, set default message
+          // if server returns empty history, set default message
           setMessages([{ sender: "bot", text: "Hello! How can I assist you today?" }]);
         }
       } else {
         console.log("Could not load chat history - Response not OK");
-        // On error, set default welcome message
+        // on error, set default welcome message
         setMessages([{ sender: "bot", text: "Hello! How can I assist you today?" }]);
       }
     } catch (error) {
       console.log("Error loading chat history:", error);
-      // On error, set default welcome message
       setMessages([{ sender: "bot", text: "Hello! How can I assist you today?" }]);
     } finally {
       setIsLoadingHistory(false);
@@ -147,7 +143,6 @@ function App() {
       setIsAuthenticated(true);
       setUserInfo({ userId, username });
       setInterfaceState(true);
-      // Load chat history for newly authenticated user
       setIsLoadingHistory(true);
       loadChatHistory(token);
     }

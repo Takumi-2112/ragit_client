@@ -1,8 +1,6 @@
 import { useState } from "react";
 import "../styles/RegisterLoginModal.css";
 
-
-
 function RegisterLoginModal({
   register,
   setRegister,
@@ -18,6 +16,8 @@ function RegisterLoginModal({
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [loginError, setLoginError] = useState(false);
+  const [serverFailure, setServerFailure] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +25,6 @@ function RegisterLoginModal({
       ...prev,
       [name]: value,
     }));
-    // Clear error message when user starts typing
     if (errorMessage) setErrorMessage("");
   };
 
@@ -36,6 +35,7 @@ function RegisterLoginModal({
       password: "",
     });
     setErrorMessage("");
+    
   };
 
   const handleSubmit = async (e) => {
@@ -45,13 +45,12 @@ function RegisterLoginModal({
 
     if (register) {
       try {
-        // Client-side validation
         if (formData.username.trim().length < 3) {
           setErrorMessage("Username must be at least 3 characters long");
           setIsLoading(false);
           return;
         }
-        
+
         if (formData.password.length < 6) {
           setErrorMessage("Password must be at least 6 characters long");
           setIsLoading(false);
@@ -61,7 +60,7 @@ function RegisterLoginModal({
         const payload = {
           username: formData.username.trim(),
           email: formData.email.trim().toLowerCase(),
-          password: formData.password  // Send plain text - server will hash it
+          password: formData.password, // Send plain text - server will hash it
         };
 
         const response = await fetch("https://ragit-server.onrender.com/register", {
@@ -75,39 +74,38 @@ function RegisterLoginModal({
         const data = await response.json();
 
         if (response.ok) {
-          // Store token and user data
+          // store token and user data
           localStorage.setItem("token", data.token);
           localStorage.setItem("user_id", data.user_id);
           localStorage.setItem("username", data.username);
 
-          // Set initial messages (new user gets default welcome message)
           setMessages([
             { sender: "bot", text: "Hello! How can I assist you today?" },
           ]);
 
-          // Close modal and redirect to interface
           handleRegisterLoginModalClose();
           console.log("Registration successful");
         } else {
           console.error("Registration failed:", data.error);
           setErrorMessage(data.error || "Registration failed");
+          setLoginError(false);
+          setServerFailure(false);
         }
 
-        // Clear sensitive data after processing response
         clearFormData();
       } catch (error) {
         console.error("Registration error:", error);
         setErrorMessage("Registration failed. Please try again.");
+        setServerFailure(true);
         clearFormData();
       } finally {
         setIsLoading(false);
       }
     } else if (login) {
-      // Handle login
       try {
         const payload = {
           username: formData.username.trim(),
-          password: formData.password  // Send plain text - server will verify against hash
+          password: formData.password, // send plain text - server will verify against hash
         };
 
         const response = await fetch("https://ragit-server.onrender.com/login", {
@@ -121,42 +119,43 @@ function RegisterLoginModal({
         const data = await response.json();
 
         if (response.ok) {
-          // Store token and user data
           localStorage.setItem("token", data.token);
           localStorage.setItem("user_id", data.user_id);
           localStorage.setItem("username", data.username);
 
-          // Load user's chat history from the login response
+          // load chat history from the login response
           if (data.chat_history && data.chat_history.length > 0) {
             setMessages(data.chat_history);
           } else {
-            // Fallback to default message if no history
             setMessages([
               { sender: "bot", text: "Hello! How can I assist you today?" },
             ]);
           }
 
-          // Close modal and redirect to interface
           handleRegisterLoginModalClose();
           console.log("Login successful");
+          setLoginError(false);
+          setServerFailure(false);
         } else {
           console.error("Login failed:", data.error);
-          setErrorMessage(data.error || "Login failed");
+          setErrorMessage("Invalid username or password");
+          setLoginError(true);
+          setServerFailure(false);
         }
-
-        // Clear sensitive data after processing response
+        
         clearFormData();
       } catch (error) {
         console.error("Login error:", error);
-        setErrorMessage("Login failed. Please try again.");
+        setErrorMessage("Invalid username or password");
+        setServerFailure(true);
         clearFormData();
       } finally {
         setIsLoading(false);
+
       }
     }
   };
 
-  // Only render the modal if register or login is true
   if (!register && !login) {
     return null;
   }
@@ -178,8 +177,11 @@ function RegisterLoginModal({
             <>
               <h2>Register</h2>
               {errorMessage && (
-                <div style={{ color: 'red', marginBottom: '10px', fontSize: '14px' }}>
-                  {errorMessage}
+                <div className="auth-error-message">{errorMessage}</div>
+              )}
+              {serverFailure && (
+                <div className="auth-error-message">
+                  Please try again.
                 </div>
               )}
               <form onSubmit={handleSubmit}>
@@ -216,8 +218,8 @@ function RegisterLoginModal({
                   required
                   disabled={isLoading}
                 />
-                <button 
-                  className="form-submit-button" 
+                <button
+                  className="form-submit-button"
                   type="submit"
                   disabled={isLoading}
                 >
@@ -227,7 +229,7 @@ function RegisterLoginModal({
               <p>
                 Already have an account?{" "}
                 <span
-                  style={{ cursor: isLoading ? 'not-allowed' : 'pointer' }}
+                  style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
                   onClick={() => {
                     if (!isLoading) {
                       clearFormData();
@@ -244,9 +246,14 @@ function RegisterLoginModal({
           {login && (
             <>
               <h2>Login</h2>
-              {errorMessage && (
-                <div style={{ color: 'red', marginBottom: '10px', fontSize: '14px' }}>
-                  {errorMessage}
+              {loginError && (
+                <div className="auth-error-message">
+                  Invalid username or password
+                </div>
+              )}
+              {serverFailure && (
+                <div className="auth-error-message">
+                  Please try again.
                 </div>
               )}
               <form onSubmit={handleSubmit}>
@@ -272,8 +279,8 @@ function RegisterLoginModal({
                   required
                   disabled={isLoading}
                 />
-                <button 
-                  className="form-submit-button" 
+                <button
+                  className="form-submit-button"
                   type="submit"
                   disabled={isLoading}
                 >
@@ -283,7 +290,7 @@ function RegisterLoginModal({
               <p>
                 Don't have an account?{" "}
                 <span
-                  style={{ cursor: isLoading ? 'not-allowed' : 'pointer' }}
+                  style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
                   onClick={() => {
                     if (!isLoading) {
                       clearFormData();

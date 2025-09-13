@@ -86,7 +86,7 @@ function About({ isAbout }) {
     {
       title: "🚀 Instant Processing",
       description:
-        "Upload PDFs or paste URLs and start querying your knowledge base within seconds",
+        "Upload PDFs and start querying your knowledge base within seconds",
     },
     {
       title: "🔍 Smart Search",
@@ -98,11 +98,11 @@ function About({ isAbout }) {
       description:
         "Your knowledge base grows with each upload and remembers conversation context",
     },
-    {
-      title: "🌐 Web Integration",
-      description:
-        "Ingest content from any website URL to expand your knowledge instantly",
-    },
+    // {
+    //   title: "🌐 Web Integration",
+    //   description:
+    //     "Ingest content from any website URL to expand your knowledge instantly",
+    // },
     {
       title: "🔒 Secure & Private",
       description:
