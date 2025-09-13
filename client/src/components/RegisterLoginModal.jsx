@@ -18,6 +18,7 @@ function RegisterLoginModal({
   const [errorMessage, setErrorMessage] = useState("");
   const [loginError, setLoginError] = useState(false);
   const [serverFailure, setServerFailure] = useState(false);
+  const [usernameExists, setUsernameExists] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -85,6 +86,13 @@ function RegisterLoginModal({
 
           handleRegisterLoginModalClose();
           console.log("Registration successful");
+        } else if (response.status === 409) {
+          // conflict - username already exists
+          console.error("Username already exists"); 
+          setErrorMessage("Username already exists");
+          setUsernameExists(true);
+          setLoginError(false);
+          setServerFailure(false);
         } else {
           console.error("Registration failed:", data.error);
           setErrorMessage(data.error || "Registration failed");
@@ -182,6 +190,11 @@ function RegisterLoginModal({
               {serverFailure && (
                 <div className="auth-error-message">
                   Please try again.
+                </div>
+              )}
+              {usernameExists && (
+                <div className="auth-error-message">
+                  Username already exists. Please choose a different one.
                 </div>
               )}
               <form onSubmit={handleSubmit}>

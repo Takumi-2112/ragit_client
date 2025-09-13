@@ -217,8 +217,8 @@ function App() {
           menuOpen={menuOpen}
           toggleMenu={toggleMenu}
         />
-        <div className="app-content" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
-          <p>Loading chat history...</p>
+        <div className="app-content" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh', fontFamily: 'Orbitron, sans-serif', fontSize: '1.5rem', color: '#ffffff' }}>
+          <p className="loading-chat">Loading chat history...</p>
         </div>
         <Footer login={login} />
       </div>
