@@ -140,7 +140,7 @@
 /* Desktops */
 @media (min-width: 1200px) and (max-width: 1599px) {
   .feature-title, .use-case-title{
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   
   .about-features-div, .about-use-cases-div{
@@ -149,7 +149,7 @@
   
   .about-features-div ul, .about-use-cases-div ul{
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 }
 
