@@ -6,6 +6,9 @@ A Retrieval-Augmented Generation application that lets users upload PDFs content
 
 RAG-it processes your documents, converts them into searchable vector databases, and allows you to have conversations with an AI that can reference your specific content. Each user gets their own isolated knowledge base with persistent chat history. **Data privacy and security are enforced at every step using Supabase.**
 
+## Visit RAG it
+[Here!](https://ragit.netlify.app/)
+
 ## Tech Stack
 
 ### Frontend
